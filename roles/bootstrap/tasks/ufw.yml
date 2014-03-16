@@ -1,0 +1,10 @@
+---
+- name: Allow some UFW ports
+  shell: ufw allow proto tcp from any to any port {{item}}
+  with_items:
+    - 22
+    - 80
+    - 443
+
+- name: Enable UFW
+  shell: ufw -f enable

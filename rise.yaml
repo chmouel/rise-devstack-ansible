@@ -1,0 +1,7 @@
+---
+- name: Rise devstack from the death for its master (me)
+  hosts: all
+  sudo: yes
+
+  roles:
+    - bootstrap
