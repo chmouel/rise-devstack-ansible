@@ -1,0 +1,8 @@
+Host *
+    ForwardAgent yes
+    GSSAPIAuthentication no
+    VerifyHostKeyDNS no
+    StrictHostKeyChecking no
+    HashKnownHosts no
+    TCPKeepAlive yes
+    ServerAliveInterval 6000

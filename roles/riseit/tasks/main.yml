@@ -1,0 +1,45 @@
+---
+# - name: ensure apt cache is up to date
+#   action: apt update_cache=no
+- name: Create /opt/stack directory
+  sudo: yes
+  file: path=/opt/stack state=directory owner={{ansible_ssh_user}} group={{ansible_ssh_user}}
+
+- name: Checkout OpenStack code repos
+  git: repo=https://github.com/{{item}}.git
+       dest=/opt/stack/{{ item | basename }} update=no depth=1
+  with_items: code_repos
+
+- name: Link some repos in Home
+  file: state=link src=/opt/stack/{{ item }} dest=~/{{ item }}
+  with_items: repo_to_link_home
+
+- name: Install openstack packages
+  apt: name={{item}}
+  sudo: yes
+  with_items: openstack_packages
+
+- name: Install pip packages
+  pip: name={{item}}
+  sudo: yes
+  with_items: pipies
+
+- name: Checkout the gists
+  git: repo=http://gist.github.com/{{ item.id }} dest=~/GIT/{{ item.name }} update=no depth=1
+  with_items: gists
+
+- name: Links the gists
+  file: state=link src=~/GIT/{{ item.name }}/{{ item.script }} dest=~/bin/{{ item.name }}
+  with_items: gists
+
+- name: Set default git user
+  shell: git config -f ~/.gitconfig user.email {{ git_email }}
+
+- name: Copy devstack localrc
+  copy: src=localrc dest=devstack/localrc
+
+- name: Copy upgit script
+  copy: src=upgit dest=bin/upgit mode=0755
+
+- name: Copy local functions
+  copy: src=devstack-local-shell-config.zsh dest=~/.shell/hosts/{{ ansible_hostname }}.sh

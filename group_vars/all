@@ -1,0 +1,68 @@
+# -*- Mode: yaml -*-
+---
+git_email: chmouel@enovance.com
+
+ports_to_open:
+  - 22
+  - 80
+  - 443
+  - 8080
+  - 5000
+  - 35357
+
+repo_to_link_home:
+  - swift
+  - devstack
+  - python-swiftclient
+  - python-keystoneclient
+  - keystone
+
+code_repos:
+  - openstack/nova
+  - openstack/heat
+  - openstack/python-heatclient
+  - openstack/heat-templates
+  - openstack/keystone
+  - openstack-dev/devstack
+  - openstack/python-keystoneclient
+  - openstack/python-novaclient
+  - openstack/python-openstackclient
+  - openstack/python-swiftclient
+  - openstack/swift
+  - chmouel/upcs
+
+standard_packages:
+  - locales
+  - vim
+  - tmux
+  - screen
+  - git-core
+  - zsh-beta
+  - ack-grep
+  - ufw
+
+openstack_packages:
+  - python-pip
+  - libxslt1-dev
+  - zlib1g-dev
+  - libsqlite3-dev
+  - libssl-dev
+  - autojump
+  - ipython
+  - htop
+  - build-essential
+  - python-dev
+
+pipies:
+  - flake8
+  - testrepository
+  - coverage
+  - tox
+  - git-review
+
+gists:
+  - { name: 'setup-swift-keystone-functional-test.sh', id: '5782804', script: 'swift-setup-for-keystone-function-test.sh' }
+  - { name: 'ks', id: '5001515', script: 'ks.sh' }
+  - { name: 'git-browse', id: '5755303', script: 'git-browse.sh' }
+  - { name: 'git-browse-review', id: '6682049', script: 'git-browse-review' }
+  - { name: 'git-jenkins-error', id: '8195145', script: 'git-jenkins-error.py' }

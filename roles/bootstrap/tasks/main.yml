@@ -1,24 +1,4 @@
 ---
-# - name: ensure apt cache is up to date
-#   action: apt update_cache=no
-
-- name: ensure packages are installed
-  action: apt name={{item}}
-  with_items:
-    - locales
-    - vim
-    - tmux
-    - screen
-    - git-core
-    - zsh-beta
-    - ack-grep
-    - ufw
-
-- name: setting zsh as default shell for root
-  shell: chsh -s /bin/zsh {{ ansible_ssh_user }}
-
-- name: Setup vim as default editor
-  shell: update-alternatives --set editor /usr/bin/vim.basic
-
-- include: ufw.yml
-- include: git_configuration.yml
+- { include: defaults.yml, sudo: yes }
+- { include: ufw.yml, sudo: yes }
+- { include: rc_setup.yml }

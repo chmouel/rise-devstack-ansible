@@ -1,10 +1,8 @@
 ---
 - name: Create Home GIT directory
-  sudo: no
-  file: path=~/GIT state=directory owner={{ansible_ssh_user}} group={{ansible_ssh_user}}
+  file: path=~/GIT state=directory
 
 - name: Checkout GIT repos
-  sudo: no
   git: repo=https://github.com/chmouel/{{item}}-config.git
        dest=~/GIT/{{item}}-config update=no
   with_items:
@@ -13,7 +11,6 @@
     - vim
 
 - name: Symlinks RC standard configuration
-  sudo: no
   file: src=GIT/rc-config/{{item}} dest=~/.{{item}} state=link
   with_items:
     - gitconfig
@@ -22,21 +19,22 @@
     - tmux.conf
 
 - name: Symlink ZSH directory
-  sudo: no
   file: src=GIT/zsh-config dest=~/.shell state=link
 
 - name: Symlink ZSHrc
-  sudo: no
   file: src=.shell/config/zshrc dest=~/.zshrc state=link
 
 - name: Symlink VIM directory
-  sudo: no
   file: src=GIT/vim-config dest=~/.vim state=link
 
 - name: Symlink VIMrc
-  sudo: no
   file: src=.vim/vimrc dest=~/.vimrc state=link
 
 - name: Copy default ZSH Shell local config
-  sudo: no
-  copy: src=zshrc-local-configuration.sh dest=~/.shell/hosts/{{ansible_hostname}}.sh
+  copy: src=zshrc-local-configuration.sh dest=~/.shell/hosts/{{ ansible_hostname }}.sh
+
+- name: Copy default ssh_config
+  copy: src=ssh_config dest=~/.ssh/config mode=0600
+
+- name: Create bin directory
+  file: path=~/bin state=directory

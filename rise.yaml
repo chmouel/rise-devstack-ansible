@@ -1,7 +1,8 @@
 ---
-- name: Rise devstack from the death for its master (me)
+- name: Rise devstack from the death and go serve your master (me)
   hosts: all
-  sudo: yes
+  sudo: no
 
   roles:
     - bootstrap
+    - riseit
