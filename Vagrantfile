@@ -5,8 +5,8 @@ Vagrant.configure("2") do |config|
   config.vm.provision :ansible, :playbook => "rise.yaml"
 
   config.vm.provider :virtualbox do |vb, override|
-    override.vm.box = "saucy"
-    override.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/raring/current/raring-server-cloudimg-amd64-vagrant-disk1.box"
+    override.vm.box = "trusty"
+    override.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
   end
 
   config.vm.provider :openstack do |os, override|
